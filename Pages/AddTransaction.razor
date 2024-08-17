@@ -52,6 +52,6 @@
     private async Task HandleValidSubmit()
     {
         await TransactionService.SaveTransactionAsync(_transaction);
-        NavigationManager.NavigateTo("/lista-transaction");
+        NavigationManager.NavigateTo("lista-transaction");
     }
 }
