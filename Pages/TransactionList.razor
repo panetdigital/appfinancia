@@ -1,0 +1,50 @@
+@page "/lista-transaction"
+@inject TransactionService TransactionService
+@inject NavigationManager NavigationManager
+@using AppFinancia.Services;
+@using AppFinancia.Models;
+
+<h3>Transações</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th>Categoria</th>
+            <th>Tipo</th>
+            <th>Data</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var transaction in _transactions)
+        {
+            <tr style="@(transaction.IsExpense ? "color: red;" : "color: green;")">
+                <td>@transaction.Description</td>
+                <td>@transaction.Amount.ToString("C")</td>
+                <td>@transaction.Category</td>
+                <td>@(transaction.IsExpense ? "Despesa" : "Receita")</td>
+                <td>@transaction.Date.ToShortDateString()</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" @onclick="() => DeleteTransaction(transaction.Id)">Excluir</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<Transaction> _transactions = new List<Transaction>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _transactions = await TransactionService.GetTransactionsAsync();
+    }
+
+    private async Task DeleteTransaction(string id)
+    {
+        await TransactionService.DeleteTransactionAsync(id);
+        _transactions = await TransactionService.GetTransactionsAsync();
+    }
+}

@@ -1,0 +1,80 @@
+﻿@page "/"
+@inject TransactionService TransactionService
+@inject NavigationManager NavigationManager
+@using AppFinancia.Services;
+@using AppFinancia.Models;
+
+<PageTitle>Home</PageTitle>
+
+<h4>Bom dia</h4>
+
+<!-- Cartões de Resumo -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-success">
+            <div class="card-header">Receita Mensal</div>
+            <div class="card-body">
+                <h5 class="card-title">@ReceitaMensal.ToString("C")</h5>
+                <p class="card-text">Receitas acumuladas neste mês.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-danger">
+            <div class="card-header">Despesa Mensal</div>
+            <div class="card-body">
+                <h5 class="card-title">@DespesaMensal.ToString("C")</h5>
+                <p class="card-text">Despesas acumuladas neste mês.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-info">
+            <div class="card-header">Saldo Geral</div>
+            <div class="card-body">
+                <h5 class="card-title">@SaldoGeral.ToString("C")</h5>
+                <p class="card-text">Saldo total de todas as transações.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Botões de Ação -->
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <button class="btn btn-primary w-100" @onclick="GoToAddTransaction">Adicionar Nova Transação</button>
+    </div>
+    <div class="col-md-6 mb-4">
+        <button class="btn btn-secondary w-100" @onclick="GoToListTransactions">Listar Transações</button>
+    </div>
+    <div class="col-md-6 mb-4">
+        <button class="btn btn-info w-100" @onclick="GoToReports">Rélatorios</button>
+    </div>
+</div>
+
+@code {
+    private decimal ReceitaMensal => _transactions.Where(t => !t.IsExpense && t.Date.Month == DateTime.Today.Month && t.Date.Year == DateTime.Today.Year).Sum(t => t.Amount);
+    private decimal DespesaMensal => _transactions.Where(t => t.IsExpense && t.Date.Month == DateTime.Today.Month && t.Date.Year == DateTime.Today.Year).Sum(t => t.Amount);
+    private decimal SaldoGeral => _transactions.Where(t => !t.IsExpense).Sum(t => t.Amount) - _transactions.Where(t => t.IsExpense).Sum(t => t.Amount);
+
+    private List<Transaction> _transactions = new List<Transaction>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _transactions = await TransactionService.GetTransactionsAsync();
+    }
+
+    private void GoToAddTransaction()
+    {
+        NavigationManager.NavigateTo("/add-transaction");
+    }
+
+    private void GoToListTransactions()
+    {
+        NavigationManager.NavigateTo("/lista-transaction");
+    }
+     private void GoToReports()
+    {
+        NavigationManager.NavigateTo("/reports");
+    }
+}
