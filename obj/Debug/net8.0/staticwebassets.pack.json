@@ -49,6 +49,10 @@
       "PackagePath": "staticwebassets\\index.html"
     },
     {
+      "Id": "C:\\Users\\cheri\\source\\repos\\BlazorComLocalstorage\\AppFinancia\\wwwroot\\js\\chartHelper.js",
+      "PackagePath": "staticwebassets\\js\\chartHelper.js"
+    },
+    {
       "Id": "C:\\Users\\cheri\\source\\repos\\BlazorComLocalstorage\\AppFinancia\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

@@ -25,8 +25,12 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-kmWusmGawS7lgWTIv7HdoPs2jcWOqTk\/18K00u846W8=",
+      "hash": "sha256-Ni3ujWcQdqQZHgv2nd5hY\/TRNjZgz\/nSYDkWAicxJdk=",
       "url": "index.html"
+    },
+    {
+      "hash": "sha256-GwP+RxGo5gC+bVuEP5EO8S5+WQ9YsoBWpUBZxqHQzpg=",
+      "url": "js\/chartHelper.js"
     },
     {
       "hash": "sha256-oA6Bp7HzoUlwuRSU+LPoK+aTsRgu\/67aIX5UPEBd3B4=",
@@ -853,17 +857,17 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-V9pusE0KrengQlOmYjgbMxiPREEf28ZigcsiqVUoB8o=",
+      "hash": "sha256-YJXL0GM0BUhgjh2WmhTYRxyCcKSnMv8MI+FaF8eQLwE=",
       "url": "_framework\/AppFinancia.wasm"
     },
     {
-      "hash": "sha256-Nx2RH\/eUMuHpi\/Smukenvyg2P1qSS8n01AetgDbB7ew=",
+      "hash": "sha256-AhdnaG4S5MwNbcmoVGFIfZ5+4xq6cfE7osgsD4nO5zk=",
       "url": "_framework\/AppFinancia.pdb"
     },
     {
-      "hash": "sha256-yGvZ8blZGLiivoeS62N8If9PEoNeudrjynSfeTOnhr8=",
+      "hash": "sha256-IRaV+H3m9LzP\/1d9g6NSf2chGggIGHp5yRiilz6uI8I=",
       "url": "_framework\/blazor.boot.json"
     }
   ],
-  "version": "h8kEJaDH"
+  "version": "0PhZBBy1"
 };

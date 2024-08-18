@@ -1038,3 +1038,4 @@ C:\Users\cheri\source\repos\BlazorComLocalstorage\AppFinancia\bin\Debug\net8.0\w
 C:\Users\cheri\source\repos\BlazorComLocalstorage\AppFinancia\bin\Debug\net8.0\Blazored.LocalStorage.dll
 C:\Users\cheri\source\repos\BlazorComLocalstorage\AppFinancia\obj\Debug\net8.0\webcil\Blazored.LocalStorage.wasm
 C:\Users\cheri\source\repos\BlazorComLocalstorage\AppFinancia\obj\Debug\net8.0\compressed\dc9oskv55q.gz
+C:\Users\cheri\source\repos\BlazorComLocalstorage\AppFinancia\obj\Debug\net8.0\AppFinancia.sourcelink.json

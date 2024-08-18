@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "D3kiY0QUxSCX9l8ONUd7F9AIAxBuK70SNSuGWslsmqs=",
+  "Hash": "qFFN/U8TrU6OmrAKO+AtuYX8GDehli7ukG+LDcnmTgw=",
   "Source": "AppFinancia",
   "BasePath": "/",
   "Mode": "Root",
@@ -8052,6 +8052,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\index.html"
+    },
+    {
+      "Identity": "C:\\Users\\cheri\\source\\repos\\BlazorComLocalstorage\\AppFinancia\\wwwroot\\js\\chartHelper.js",
+      "SourceId": "AppFinancia",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\cheri\\source\\repos\\BlazorComLocalstorage\\AppFinancia\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "js/chartHelper.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\chartHelper.js"
     },
     {
       "Identity": "C:\\Users\\cheri\\source\\repos\\BlazorComLocalstorage\\AppFinancia\\wwwroot\\js\\site.js",

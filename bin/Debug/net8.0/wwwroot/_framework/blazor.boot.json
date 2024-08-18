@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "AppFinancia",
   "resources": {
-    "hash": "sha256-l3NSnXJ/tL50PfnRvbPmVq5iFvoQlcqk42pIpzNkbbM=",
+    "hash": "sha256-5eiOIOR127dBc0UnpMFYO768pkg9x6VirF2QmzmMBUI=",
     "jsModuleNative": {
       "dotnet.native.8.0.8.he61wej72w.js": "sha256-juC5sA7gHTLXFEhAKgdM2/RavswpwCtDfjYGsAz2FXg="
     },
@@ -209,10 +209,10 @@
       "mscorlib.wasm": "sha256-Gz8PyW2/fwihe5ul81OwmRUrU71r+KtbyRw6xlOGD+Q=",
       "netstandard.wasm": "sha256-jMTqIQzoDS810lyhZpMO5eEC36EzntXqSVn+2qwkOMQ=",
       "System.Private.CoreLib.wasm": "sha256-NFj5WE5VLP2LptZIRJCUIc1AMk06FmxpsSILfPISwAw=",
-      "AppFinancia.wasm": "sha256-yisa0GWwgPIQgWY24+uHvZUpY2go7A3cuItL09Sazjo="
+      "AppFinancia.wasm": "sha256-XVYV1oDnBv6f8wxUN0RlKNGOjIS74nSIESgUY1vkOLA="
     },
     "pdb": {
-      "AppFinancia.pdb": "sha256-eEimAY76yn5GGYjdIzMaKwGXmbsmnRM1dnTJbsDrPTI="
+      "AppFinancia.pdb": "sha256-/SXQKDV0iGMD77CYa97b8dKdCP0H6BiM75eUJlil5as="
     }
   },
   "cacheBootResources": true,
