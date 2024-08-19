@@ -25,7 +25,7 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-Ni3ujWcQdqQZHgv2nd5hY\/TRNjZgz\/nSYDkWAicxJdk=",
+      "hash": "sha256-z54lCM0JomjhQ3VxA6oD9fbYEN98hbG9CQIGxCRIx2o=",
       "url": "index.html"
     },
     {
@@ -857,17 +857,17 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-YJXL0GM0BUhgjh2WmhTYRxyCcKSnMv8MI+FaF8eQLwE=",
+      "hash": "sha256-XVYV1oDnBv6f8wxUN0RlKNGOjIS74nSIESgUY1vkOLA=",
       "url": "_framework\/AppFinancia.wasm"
     },
     {
-      "hash": "sha256-AhdnaG4S5MwNbcmoVGFIfZ5+4xq6cfE7osgsD4nO5zk=",
+      "hash": "sha256-\/SXQKDV0iGMD77CYa97b8dKdCP0H6BiM75eUJlil5as=",
       "url": "_framework\/AppFinancia.pdb"
     },
     {
-      "hash": "sha256-IRaV+H3m9LzP\/1d9g6NSf2chGggIGHp5yRiilz6uI8I=",
+      "hash": "sha256-38Yt7Ce4l9bV69ITSWNUnbTxU5JufrwG+LVJpzQfP+0=",
       "url": "_framework\/blazor.boot.json"
     }
   ],
-  "version": "0PhZBBy1"
+  "version": "hUHHddJv"
 };
