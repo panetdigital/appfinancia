@@ -13,12 +13,34 @@ public class TransactionService
     {
         _localStorage = localStorage;
     }
-
+    
+    // recuperacao dados localStorage
     public async Task<List<Transaction>> GetTransactionsAsync()
     {
         var transactions = await _localStorage.GetItemAsync<List<Transaction>>(StorageKey);
         return transactions ?? new List<Transaction>();
     }
+
+
+    // Recuperação do dados  do mes atual
+        public async Task<List<Transaction>> GetTransactionsForCurrentMonthAsync()
+    {
+        var transactions = await _localStorage.GetItemAsync<List<Transaction>>(StorageKey);
+        
+        // Verifica se há transações e filtra pelo mês atual
+        if (transactions != null)
+        {
+            var currentMonthTransactions = transactions
+                .Where(t => t.Date.Year == DateTime.Now.Year && t.Date.Month == DateTime.Now.Month)
+                .ToList();
+            
+            return currentMonthTransactions;
+        }
+
+        return new List<Transaction>(); // Retorna uma lista vazia se não houver transações
+    }
+
+
 
     public async Task SaveTransactionAsync(Transaction transaction)
     {
