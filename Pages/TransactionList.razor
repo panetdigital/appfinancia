@@ -6,6 +6,12 @@
 
 <h3>Transações</h3>
 
+<!-- Botões para alternar entre todas as transações e as do mês atual -->
+<div class="mb-3">
+    <button class="btn btn-primary btn-sm" @onclick="LoadAllTransactions">Mostrar Todas</button>
+    <button class="btn btn-secondary btn-sm" @onclick="LoadCurrentMonthTransactions">Mês Atual</button>
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -39,12 +45,27 @@
 
     protected override async Task OnInitializedAsync()
     {
+        // Carrega as transações do mês atual por padrão
+        await LoadCurrentMonthTransactions();
+    }
+
+    private async Task LoadAllTransactions()
+    {
+        // Carrega todas as transações
         _transactions = await TransactionService.GetTransactionsAsync();
+    }
+
+    private async Task LoadCurrentMonthTransactions()
+    {
+        // Carrega apenas as transações do mês atual
+        _transactions = await TransactionService.GetTransactionsForCurrentMonthAsync();
     }
 
     private async Task DeleteTransaction(string id)
     {
+        // Exclui a transação e recarrega a lista de transações atuais
         await TransactionService.DeleteTransactionAsync(id);
+        // Aqui você pode decidir se deseja recarregar todas as transações ou apenas as do mês atual
         _transactions = await TransactionService.GetTransactionsAsync();
     }
 }
