@@ -2,7 +2,7 @@ namespace AppFinancia.Models
 {
 public class Transaction
 {
-    public string Id { get; set; } = Guid.NewGuid().ToString();
+    public int Id { get; set; }
     public string? Description { get; set; }
     public decimal Amount { get; set; }
     public CategoriaTransaction Category { get; set; }
