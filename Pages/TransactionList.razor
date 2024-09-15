@@ -12,6 +12,12 @@
     <button class="btn btn-secondary btn-sm" @onclick="LoadCurrentMonthTransactions">Mês Atual</button>
 </div>
 
+<button class="btn btn-primary" @onclick="AddTransaction">Adicionar Transação</button>
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="alert alert-danger">@ErrorMessage</div>
+}
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -33,6 +39,7 @@
                 <td>@(transaction.IsExpense ? "Despesa" : "Receita")</td>
                 <td>@transaction.Date.ToShortDateString()</td>
                 <td>
+                    <button class="btn btn-warning btn-sm" @onclick="() => EditTransaction(transaction)">Editar</button>
                     <button class="btn btn-danger btn-sm" @onclick="() => DeleteTransaction(transaction.Id)">Excluir</button>
                 </td>
             </tr>
@@ -40,13 +47,71 @@
     </tbody>
 </table>
 
+@* Modal de Edição *@
+@if (isEditModalVisible)
+{
+    <div class="modal show d-block" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Transação</h5>
+                    <button type="button" class="close" @onclick="CloseEditModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <input type="text" class="form-control" @bind="editingTransaction.Description" />
+                    </div>
+                    <div class="form-group">
+                        <label>Valor</label>
+                        <input type="number" class="form-control" @bind="editingTransaction.Amount" />
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select class="form-control" @bind="editingTransaction.Category">
+                            @foreach (CategoriaTransaction category in Enum.GetValues(typeof(CategoriaTransaction)))
+                            {
+                                <option value="@category">@category</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Data</label>
+                        <input type="date" class="form-control" @bind="editingTransaction.Date" />
+                    </div>
+                   <div class="form-group">
+                        <label>
+                            <input type="checkbox" @bind="editingTransaction.IsExpense" />
+                            @if (editingTransaction.IsExpense)
+                            {
+                                <span>Despesa</span>
+                            }
+                            else
+                            {
+                                <span>Receita</span>
+                            }
+                        </label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CloseEditModal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" @onclick="SaveEditedTransaction">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 @code {
     private List<Transaction> _transactions = new List<Transaction>();
+    private string ErrorMessage;
+    private bool isEditModalVisible = false;
+    private Transaction editingTransaction = new Transaction();
 
     protected override async Task OnInitializedAsync()
     {
-        // Carrega as transações do mês atual por padrão
-        await LoadCurrentMonthTransactions();
+        _transactions = await TransactionService.GetTransactionsForCurrentMonthAsync();
     }
 
     private async Task LoadAllTransactions()
@@ -61,11 +126,61 @@
         _transactions = await TransactionService.GetTransactionsForCurrentMonthAsync();
     }
 
-    private async Task DeleteTransaction(string id)
+
+    private async Task DeleteTransaction(int id)
     {
-        // Exclui a transação e recarrega a lista de transações atuais
         await TransactionService.DeleteTransactionAsync(id);
-        // Aqui você pode decidir se deseja recarregar todas as transações ou apenas as do mês atual
         _transactions = await TransactionService.GetTransactionsAsync();
+    }
+
+    private async Task AddTransaction()
+    {
+        NavigationManager.NavigateTo("/add-transaction");
+        @* try
+        {
+            var newTransaction = new Transaction
+            {
+                Description = "Nova Transação",
+                Amount = 10.00m,
+                Category = CategoriaTransaction.Outros,
+                Date = DateTime.Now,
+                IsExpense = true
+            };
+
+            await TransactionService.SaveTransactionAsync(newTransaction);
+            _transactions = await TransactionService.GetTransactionsAsync();
+            ErrorMessage = string.Empty; // Limpar mensagem de erro ao adicionar com sucesso
+        }
+        catch (InvalidOperationException ex)
+        {
+            ErrorMessage = ex.Message; // Exibir mensagem de erro se o limite for atingido
+        } *@
+    }
+
+    private void EditTransaction(Transaction transaction)
+    {
+        editingTransaction = new Transaction
+        {
+            Id = transaction.Id,
+            Description = transaction.Description,
+            Amount = transaction.Amount,
+            Category = transaction.Category,
+            Date = transaction.Date,
+            IsExpense = transaction.IsExpense
+        };
+        isEditModalVisible = true;
+    }
+
+    private async Task SaveEditedTransaction()
+    {
+        await TransactionService.UpdateTransactionAsync(editingTransaction);
+        _transactions = await TransactionService.GetTransactionsAsync();
+        CloseEditModal();
+    }
+
+    private void CloseEditModal()
+    {
+        isEditModalVisible = false;
+        editingTransaction = new Transaction();
     }
 }
