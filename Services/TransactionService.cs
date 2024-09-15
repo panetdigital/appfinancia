@@ -43,22 +43,46 @@ public class TransactionService
 
 
     public async Task SaveTransactionAsync(Transaction transaction)
-    {
-        var transactions = await GetTransactionsAsync();
-        transactions.Add(transaction);
-        await _localStorage.SetItemAsync(StorageKey, transactions);
-    }
-
-    public async Task DeleteTransactionAsync(string id)
-    {
-        var transactions = await GetTransactionsAsync();
-        var transaction = transactions.FirstOrDefault(t => t.Id == id);
-        if (transaction != null)
         {
-            transactions.Remove(transaction);
+            var transactions = await GetTransactionsAsync();
+
+            // Definindo o próximo Id
+            transaction.Id = transactions.Any() ? transactions.Max(t => t.Id) + 1 : 1;
+
+            transactions.Add(transaction);
             await _localStorage.SetItemAsync(StorageKey, transactions);
         }
+
+    public async Task DeleteTransactionAsync(int id)
+        {
+            var transactions = await GetTransactionsAsync();
+            var transaction = transactions.FirstOrDefault(t => t.Id == id);
+            if (transaction != null)
+            {
+                transactions.Remove(transaction);
+                await _localStorage.SetItemAsync(StorageKey, transactions);
+            }
+        }
+    
+    public async Task UpdateTransactionAsync(Transaction updatedTransaction)
+    {
+    var transactions = await GetTransactionsAsync();
+    var transaction = transactions.FirstOrDefault(t => t.Id == updatedTransaction.Id);
+
+    if (transaction != null)
+    {
+        // Atualizar propriedades da transação existente
+        transaction.Description = updatedTransaction.Description;
+        transaction.Amount = updatedTransaction.Amount;
+        transaction.Category = updatedTransaction.Category;
+        transaction.Date = updatedTransaction.Date;
+        transaction.IsExpense = updatedTransaction.IsExpense;
+
+        // Salvar as transações atualizadas no localStorage
+        await _localStorage.SetItemAsync(StorageKey, transactions);
     }
+    }
+
 }
 
 }
