@@ -1,6 +1,7 @@
 @page "/reports"
 @inject TransactionService TransactionService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 @using AppFinancia.Services;
 @using AppFinancia.Models;
 <h3>Relatórios</h3>
@@ -39,7 +40,7 @@
 </div>
 
 <button class="btn btn-primary" @onclick="GenerateReport">Gerar Relatório</button>
-
+<button class="btn btn-danger btn-sm" @onclick="ExportToPdf">Exportar para PDF</button>
 <!-- Resumo do Relatório -->
 @if (filteredTransactions.Any())
 {
@@ -104,5 +105,21 @@ else
     private async Task GenerateReport()
     {
         filteredTransactions = _transactions.Where(t => t.Date >= startDate && t.Date <= endDate).ToList();
+    }
+
+// Exportaçao PDF
+     private async Task ExportToPdf()
+    {
+        // Converter as transações para um formato que o JavaScript entenda
+        var transactionsForJs = _transactions.Select(t => new
+        {
+            description = t.Description,
+            amount = t.Amount,
+            category = t.Category.ToString(),
+            date = t.Date
+        });
+
+        // Chamar o método JS para exportar o PDF com os cabeçalhos fixos
+        await JSRuntime.InvokeVoidAsync("jsPDFGenerator.generatePDF", transactionsForJs);
     }
 }
