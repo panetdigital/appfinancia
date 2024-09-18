@@ -19,3 +19,30 @@ no index ter que tirar no NavMenu onde esta link do home recolar / pra mostra di
             <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
             </NavLink>
+
+###---CRIAR SERVIÇO DE EXPORTAÇAO CVS
+ 1 Crie a classe de serviço para exportar CSV:
+
+    Adicione uma classe chamada CsvExportService.cs na pasta Services
+
+2. Registrar o serviço no Program.cs
+    builder.Services.AddScoped<CsvExportService>();
+
+3. Injetar o serviço na página Blazor para exportar o CSV
+   @page "/lista-transaction
+   @inject TransactionService TransactionService
+   @inject CsvExportService CsvExportService
+
+4. Arquivo js--> BlazorDownloadFile
+
+###----SERVIÇO DE EXPORTAÇAO pdf
+1. Registrar o JavaScript no index.html:
+
+      Adicione o link para o pdfGenerator.js no arquivo wwwroot/index.html.
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+      <script src="js/pdfGenerator.js"></script>
+
+2. Adicione o script de exportação PDF:
+    No arquivo wwwroot/js/pdfGenerator.js, 
+3. Registrar o serviço PDF no Blazor:
+    No arquivo ListaTransaction.razor, injete o IJSRuntime e adicione um botão para exportação PDF.
