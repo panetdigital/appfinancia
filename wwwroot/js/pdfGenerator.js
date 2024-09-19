@@ -3,45 +3,62 @@ window.jsPDFGenerator = {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-        // Tamanho da página
-        const pageWidth = doc.internal.pageSize.getWidth();
-
-        // Data atual
-        const currentDate = new Date().toLocaleDateString();
-
-        // Título do relatório (centralizado)
+        // Título do relatório com margem superior
         const title = 'Relatório de Transações';
-        const titleX = (pageWidth - doc.getTextWidth(title)) / 2; // Centralizar o título
         doc.setFontSize(16);
-        doc.text(title, titleX, 10); // O título estará centralizado
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const marginTop = 20; // Defina a margem superior aqui
+        doc.text(title, pageWidth / 2, marginTop, null, null, 'center');
 
-        // Data no canto superior direito
-        doc.setFontSize(10);
-        doc.text(currentDate, pageWidth - 30, 10); // Data no canto superior direito
+        // Espaço adicional após o título
+        let startY = marginTop + 20; // Define a altura de onde os cabeçalhos começam
 
-        // Espaço após o título
-        let startY = 20;
-
-        // Cabeçalhos da tabela
+        // Cabeçalhos da tabela com margem ajustada
         doc.setFontSize(12);
         doc.text('Descrição', 10, startY);
         doc.text('Valor', 60, startY);
         doc.text('Categoria', 100, startY);
         doc.text('Data', 140, startY);
 
-        // Linha separadora após os cabeçalhos
+        // Linha separadora abaixo dos cabeçalhos
         doc.line(10, startY + 2, 200, startY + 2);
 
-        // Adiciona as transações uma por uma abaixo do cabeçalho
+        // Adicionar transações abaixo dos cabeçalhos
         startY += 10;
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const lineHeight = 10;
+        let linesPerPage = Math.floor((pageHeight - startY) / lineHeight); // Quantas linhas cabem em uma página
+
         transactions.forEach((transaction, index) => {
-            doc.text(transaction.description, 10, startY + index * 10);
-            doc.text(transaction.amount.toString(), 60, startY + index * 10);
-            doc.text(transaction.category, 100, startY + index * 10);
-            doc.text(new Date(transaction.date).toLocaleDateString(), 140, startY + index * 10);
+            // Verifica se precisa adicionar uma nova página
+            if (index !== 0 && index % linesPerPage === 0) {
+                doc.addPage(); // Adiciona uma nova página
+                startY = 20; // Reinicia a posição do Y na nova página
+
+                // Cabeçalhos em cada nova página
+                doc.text('Descrição', 10, startY);
+                doc.text('Valor', 60, startY);
+                doc.text('Categoria', 100, startY);
+                doc.text('Data', 140, startY);
+                doc.line(10, startY + 2, 200, startY + 2);
+                startY += 10; // Atualiza para começar as transações abaixo dos cabeçalhos
+            }
+
+            const yPosition = startY + (index % linesPerPage) * lineHeight;
+
+            const description = transaction.description || '';
+            const amount = transaction.amount || 0;
+            const category = transaction.category || '';
+            const date = transaction.date ? new Date(transaction.date).toLocaleDateString() : '';
+
+            doc.text(description, 10, yPosition);
+            doc.text(amount.toString(), 60, yPosition);
+            doc.text(category, 100, yPosition);
+            doc.text(date, 140, yPosition);
         });
 
-        // Salva o PDF com o nome especificado
+        // Salvar o PDF
         doc.save('transacoes.pdf');
     }
 };
+
