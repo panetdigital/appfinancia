@@ -10,6 +10,15 @@
 
 <!-- Cartões de Resumo -->
 <div class="row mb-4">
+ <div class="col-md-4">
+        <div class="card text-white bg-info">
+            <div class="card-header">Saldo Geral</div>
+            <div class="card-body">
+                <h5 class="card-title">@SaldoGeral.ToString("C")</h5>
+                <p class="card-text">Saldo total de todas as transações.</p>
+            </div>
+        </div>
+    </div>
     <div class="col-md-4">
         <div class="card text-white bg-success">
             <div class="card-header">Receita Mensal</div>
@@ -28,15 +37,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card text-white bg-info">
-            <div class="card-header">Saldo Geral</div>
-            <div class="card-body">
-                <h5 class="card-title">@SaldoGeral.ToString("C")</h5>
-                <p class="card-text">Saldo total de todas as transações.</p>
-            </div>
-        </div>
-    </div>
+   
 </div>
 
 <!-- Botões de Ação -->
