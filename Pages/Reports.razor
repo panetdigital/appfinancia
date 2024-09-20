@@ -1,7 +1,8 @@
 @page "/reports"
 @inject TransactionService TransactionService
-@inject NavigationManager NavigationManager
+@inject CsvExportService CsvExportService
 @inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
 @using AppFinancia.Services;
 @using AppFinancia.Models;
 <h3>Relatórios</h3>
@@ -41,6 +42,7 @@
 
 <button class="btn btn-primary" @onclick="GenerateReport">Gerar Relatório</button>
 <button class="btn btn-danger btn-sm" @onclick="ExportToPdf">Exportar para PDF</button>
+<button class="btn btn-success btn-sm" @onclick="ExportTransactionsToCsv">Exportar para CSV</button>
 <!-- Resumo do Relatório -->
 @if (filteredTransactions.Any())
 {
@@ -105,6 +107,13 @@ else
     private async Task GenerateReport()
     {
         filteredTransactions = _transactions.Where(t => t.Date >= startDate && t.Date <= endDate).ToList();
+    }
+
+ // Metodo Exporta Cvs
+     private async Task ExportTransactionsToCsv()
+    {
+        var transactions = await TransactionService.GetTransactionsAsync();
+        await CsvExportService.ExportTransactionsToCsvAsync(transactions);
     }
 
 // Exportaçao PDF
