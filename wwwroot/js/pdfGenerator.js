@@ -5,10 +5,18 @@ window.jsPDFGenerator = {
 
         // Título do relatório com margem superior
         const title = 'Relatório de Transações';
+        const currentDate = new Date().toLocaleDateString(); // Obtém a data atual no formato local
         doc.setFontSize(16);
+
         const pageWidth = doc.internal.pageSize.getWidth();
         const marginTop = 20; // Defina a margem superior aqui
+
+        // Centraliza o título
         doc.text(title, pageWidth / 2, marginTop, null, null, 'center');
+
+        // Coloca a data no canto superior direito
+        doc.setFontSize(12);
+        doc.text(`Data: ${currentDate}`, pageWidth - 50, marginTop); // Ajusta a posição da data
 
         // Espaço adicional após o título
         let startY = marginTop + 20; // Define a altura de onde os cabeçalhos começam
@@ -61,4 +69,5 @@ window.jsPDFGenerator = {
         doc.save('transacoes.pdf');
     }
 };
+
 
