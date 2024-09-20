@@ -1,5 +1,6 @@
 @page "/lista-transaction"
 @inject TransactionService TransactionService
+@inject CsvExportService CsvExportService
 @inject NavigationManager NavigationManager
 @using AppFinancia.Services;
 @using AppFinancia.Models;
@@ -12,7 +13,9 @@
     <button class="btn btn-secondary btn-sm" @onclick="LoadCurrentMonthTransactions">Mês Atual</button>
 </div>
 
-<button class="btn btn-primary" @onclick="AddTransaction">Adicionar Transação</button>
+<button class="btn btn-primary btn-sm" @onclick="AddTransaction">Adicionar Transação</button>
+<button class="btn btn-success btn-sm" @onclick="ExportTransactionsToCsv">Exportar para CSV</button>
+
 @if (!string.IsNullOrEmpty(ErrorMessage))
 {
     <div class="alert alert-danger">@ErrorMessage</div>
@@ -38,9 +41,10 @@
                 <td>@transaction.Category</td>
                 <td>@(transaction.IsExpense ? "Despesa" : "Receita")</td>
                 <td>@transaction.Date.ToShortDateString()</td>
-                <td>
-                    <button class="btn btn-warning btn-sm" @onclick="() => EditTransaction(transaction)">Editar</button>
-                    <button class="btn btn-danger btn-sm" @onclick="() => DeleteTransaction(transaction.Id)">Excluir</button>
+               <td>
+                <button class="btn btn-warning btn-sm" @onclick="() => EditTransaction(transaction)">Editar</button>
+                <span style="padding-bottom: 5px;"></span> 
+                <button class="btn btn-danger btn-sm" @onclick="() => DeleteTransaction(transaction.Id)">Excluir</button>
                 </td>
             </tr>
         }
@@ -135,7 +139,7 @@
 
     private async Task AddTransaction()
     {
-         NavigationManager.NavigateTo("add-transaction");
+        NavigationManager.NavigateTo("/add-transaction");
         @* try
         {
             var newTransaction = new Transaction
@@ -176,6 +180,14 @@
         await TransactionService.UpdateTransactionAsync(editingTransaction);
         _transactions = await TransactionService.GetTransactionsAsync();
         CloseEditModal();
+    }
+
+
+    // Metodo Exporta Cvs
+     private async Task ExportTransactionsToCsv()
+    {
+        var transactions = await TransactionService.GetTransactionsAsync();
+        await CsvExportService.ExportTransactionsToCsvAsync(transactions);
     }
 
     private void CloseEditModal()
