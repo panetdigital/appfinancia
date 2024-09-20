@@ -10,6 +10,9 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddScoped<TransactionService>();
 
+// Adicionando o CsvExportService ao contêiner de injeção de dependências
+builder.Services.AddScoped<CsvExportService>();
+
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 await builder.Build().RunAsync();
