@@ -48,6 +48,19 @@
         <a class="dismiss">🗙</a>
     </div>
 
+    <!--Pra exportacao cvs  -->
+    <script>
+        window.BlazorDownloadFile = (fileName, contentType, byteBase64) => {
+            const link = document.createElement('a');
+            link.download = fileName;
+            link.href = `data:${contentType};base64,${byteBase64}`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+    </script>
+    
+
     <!-- <script src="js/site.js"></script> -->
     <script src="js/chartHelper.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
