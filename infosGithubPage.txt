@@ -2,7 +2,7 @@
  push:
     branches: ["master"]
 
-2 adicionar url base no projeto: MainLayout.razor
+2 adicionar url base no projeto
  <base href="https://panetdigital.github.io/appfinancia/" />
 
 3 muda nome do projeto dentro main.yml
