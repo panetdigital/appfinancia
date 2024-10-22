@@ -4,7 +4,11 @@
 
 2 adicionar url base no projeto
  <base href="https://panetdigital.github.io/appfinancia/" />
-
+ - clicar configuraçao
+   - Aba Page
+      activa a filiaçao: Construção e implantação
+      Fonte
+      Filial
 3 muda nome do projeto dentro main.yml
 
  - name: Publish .NET Core Project
